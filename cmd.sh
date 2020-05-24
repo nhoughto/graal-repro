@@ -1,7 +1,7 @@
 #!/bin/bash
 ./gradlew jar
 native-image \
--cp build/libs/repro.jar \
+-cp build/libs/graal-repro.jar \
 -H:+UseLowLatencyGC \
 -R:MinHeapSize=64m \
 -R:MaxNewSize=32m \
@@ -13,8 +13,9 @@ native-image \
 -H:+ReportExceptionStackTraces \
 -H:Name=output \
 -H:FallbackThreshold=0 \
--H:Path=/data/worker/repro/build \
+-H:Path=build \
 --no-server \
 --language:js \
 -H:Class=Test \
---verbose
+--verbose \
+-J-da
