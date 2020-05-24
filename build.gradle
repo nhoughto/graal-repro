@@ -1,0 +1,33 @@
+plugins {
+    id "com.palantir.graal" version "0.6.0"
+    id "java"
+    id "application"
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile "org.graalvm.sdk:graal-sdk:${graalvmVersion}"
+    compile "org.graalvm.js:js:${graalvmVersion}"
+    compile "org.graalvm.truffle:truffle-api:${graalvmVersion}"
+    compile "org.graalvm.regex:regex:${graalvmVersion}"
+}
+
+graal {
+    mainClass 'Test'
+    outputName 'output'
+    graalVersion "${graalvmVersion}-ee"
+    option '-H:+UseLowLatencyGC'
+    option '-R:MinHeapSize=64m'
+    option '-R:MaxNewSize=32m'
+    option '-R:MaxHeapSize=128m'
+    option '--allow-incomplete-classpath'
+    option '--language:js'
+    option '--report-unsupported-elements-at-runtime'
+    option '--no-server'
+    option '--no-fallback'
+    option '--verbose'
+    option '-H:+ReportExceptionStackTraces'
+}
